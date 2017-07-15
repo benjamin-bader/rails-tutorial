@@ -39,7 +39,7 @@ guard :minitest, spring: 'bin/rails test', all_on_start: false do
   end
 
   watch('app/helpers/sessions_helper.rb') do
-    integration-tests << 'test/helpers/sessions_helper-test.rb'
+    integration_tests << 'test/helpers/sessions_helper_test.rb'
   end
 
   watch('app/controllers/sessions_controller.rb') do
