@@ -51,6 +51,10 @@ guard :minitest, spring: 'bin/rails test', all_on_start: false do
     'test/integration/users_signup_test.rb'
   end
 
+  watch(%r{^app/controllers/(.*?)_controller.rb$}) do |matches|
+    integration_tests(matches[1])
+  end
+
   watch(%r{^app/views/users/*}) do
     resource_tests('users') + ['test/integration/microposts_interface_test.rb']
   end
