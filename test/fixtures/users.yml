@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: Gerald Ford
-  email: gerald.ford@whitehouse.gov
-
-two:
-  name: Michelle Obama
-  email: mobama@whitehouse.gov
+tester:
+  name: Test User
+  email: tester@testuser.com
+  password_digest: <%= BCrypt::Password.create('foobar', cost: 5) %>

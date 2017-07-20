@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class UsersSignupTest < ActionDispatch::IntegrationTest
+  include SessionsHelper
+
   test "invalid signup information" do
     get signup_path
 
@@ -36,5 +38,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
 
     # Make sure the flash shows up!
     assert_not flash.empty?
+
+    assert logged_in?
   end
 end
