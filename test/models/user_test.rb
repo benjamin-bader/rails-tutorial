@@ -66,4 +66,29 @@ class UserTest < ActiveSupport::TestCase
     @user.save
     assert_equal mixed_case_email.downcase, @user.reload.email
   end
+
+  test "remember sets a new random token" do
+    assert_nil @user.remember_token
+    @user.remember
+    assert_not_nil @user.remember_token
+  end
+
+  test 'remember stores the digest of the new random token' do
+    @user.remember
+    assert_equal BCrypt::Password.new(@user.reload.remember_digest), @user.remember_token
+  end
+
+  test 'authenticated? is true when the given token matches the remember-token digest' do
+    @user.remember
+    assert @user.authenticated?(@user.remember_token)
+  end
+
+  test 'authenticated? is false when the token does not match' do
+    @user.remember
+    assert_not @user.authenticated?('willy-nilly')
+  end
+
+  test 'authenticated? is false when user has a nil digest' do
+    assert_not @user.authenticated?('')
+  end
 end
